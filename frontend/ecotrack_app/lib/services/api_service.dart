@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  static const String baseUrl = 'https://ecotrack-backend-fzgr.onrender.com';
+  static const String baseUrl = 'https://ecotrack-backend-w70c.onrender.com';
 
   Future<Map<String, String>> _getHeaders() async {
     final prefs = await SharedPreferences.getInstance();
