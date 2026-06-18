@@ -27,6 +27,27 @@ class LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> _tryAsGuest() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final guestEmail = 'guest_$timestamp@example.com';
+    final guestPassword = 'GuestPassword123!';
+    
+    // Silently register and login the guest
+    final success = await authProvider.register(
+      guestEmail,
+      guestPassword,
+      'Guest User',
+      'Global',
+    );
+    
+    if (!success && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to enter as guest. Please try again.')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
@@ -51,10 +72,26 @@ class LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 20),
             authProvider.isLoading
                 ? CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: _login,
-                    child: Text('Login'),
+                : Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: _login,
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(double.infinity, 50),
+                        ),
+                        child: Text('Login'),
+                      ),
+                      SizedBox(height: 12),
+                      OutlinedButton(
+                        onPressed: _tryAsGuest,
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: Size(double.infinity, 50),
+                        ),
+                        child: Text('Try as Guest'),
+                      ),
+                    ],
                   ),
+            SizedBox(height: 12),
             TextButton(
               onPressed: () {
                 Navigator.of(context).push(
