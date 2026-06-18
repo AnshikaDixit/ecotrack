@@ -55,53 +55,58 @@ class LoginScreenState extends State<LoginScreen> {
     
     return Scaffold(
       appBar: AppBar(title: Text('Login')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            authProvider.isLoading
-                ? CircularProgressIndicator()
-                : Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: _login,
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 50),
-                        ),
-                        child: Text('Login'),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(labelText: 'Email'),
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                TextField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(labelText: 'Password'),
+                  obscureText: true,
+                ),
+                SizedBox(height: 20),
+                authProvider.isLoading
+                    ? CircularProgressIndicator()
+                    : Column(
+                        children: [
+                          ElevatedButton(
+                            onPressed: _login,
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(double.infinity, 50),
+                            ),
+                            child: Text('Login'),
+                          ),
+                          SizedBox(height: 12),
+                          OutlinedButton(
+                            onPressed: _tryAsGuest,
+                            style: OutlinedButton.styleFrom(
+                              minimumSize: Size(double.infinity, 50),
+                            ),
+                            child: Text('Try as Guest'),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 12),
-                      OutlinedButton(
-                        onPressed: _tryAsGuest,
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 50),
-                        ),
-                        child: Text('Try as Guest'),
-                      ),
-                    ],
-                  ),
-            SizedBox(height: 12),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => RegisterScreen()),
-                );
-              },
-              child: Text('Create an account'),
-            )
-          ],
+                SizedBox(height: 12),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => RegisterScreen()),
+                    );
+                  },
+                  child: Text('Create an account'),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

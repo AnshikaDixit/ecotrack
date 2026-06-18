@@ -38,37 +38,45 @@ class RegisterScreenState extends State<RegisterScreen> {
     
     return Scaffold(
       appBar: AppBar(title: Text('Register')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _nameController,
-              decoration: InputDecoration(labelText: 'Full Name'),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  controller: _nameController,
+                  decoration: InputDecoration(labelText: 'Full Name'),
+                ),
+                TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(labelText: 'Email'),
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                TextField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(labelText: 'Password'),
+                  obscureText: true,
+                ),
+                TextField(
+                  controller: _countryController,
+                  decoration: InputDecoration(labelText: 'Country Code (e.g. IN)'),
+                ),
+                SizedBox(height: 20),
+                authProvider.isLoading
+                    ? CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: _register,
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(double.infinity, 50),
+                        ),
+                        child: Text('Register'),
+                      ),
+              ],
             ),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            TextField(
-              controller: _countryController,
-              decoration: InputDecoration(labelText: 'Country Code (e.g. IN)'),
-            ),
-            SizedBox(height: 20),
-            authProvider.isLoading
-                ? CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: _register,
-                    child: Text('Register'),
-                  ),
-          ],
+          ),
         ),
       ),
     );
