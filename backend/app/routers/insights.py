@@ -17,6 +17,16 @@ def read_insights(
     current_user: User = Depends(get_current_user), 
     session: Session = Depends(get_session)
 ):
+    """
+    Generate personalized carbon reduction insights for the current user.
+    
+    Args:
+        current_user (User): The authenticated user making the request.
+        session (Session): The database session.
+        
+    Returns:
+        List[Insight]: A list of actionable insights based on recent activities.
+    """
     # Fetch recent activities (e.g., last 7 days)
     now = datetime.utcnow()
     start_date = now - timedelta(days=7)

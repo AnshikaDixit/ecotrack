@@ -28,6 +28,7 @@ class ApiService {
     );
   }
 
+  /// Sends a POST request encoded as form data (used for login).
   Future<http.Response> postForm(String endpoint, Map<String, String> body) async {
     final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     return await http.post(
@@ -37,6 +38,7 @@ class ApiService {
     );
   }
 
+  /// Sends a GET request to the API with an automatically injected JWT bearer token.
   Future<http.Response> get(String endpoint) async {
     final headers = await _getHeaders();
     return await http.get(

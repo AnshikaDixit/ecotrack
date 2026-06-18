@@ -29,7 +29,10 @@ class InsightCard extends StatelessWidget {
         iconColor = Colors.amber;
     }
 
-    return Card(
+    return Semantics(
+      container: true,
+      label: 'Insight: ${insight.trigger}. ${insight.recommendation}${insight.estimatedSavingsKg != null ? '. Potential savings: ${insight.estimatedSavingsKg} kilograms' : ''}',
+      child: Card(
       margin: const EdgeInsets.only(bottom: 16.0),
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -84,6 +87,6 @@ class InsightCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }

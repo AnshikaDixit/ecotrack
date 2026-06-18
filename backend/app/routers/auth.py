@@ -34,6 +34,20 @@ def get_current_user(token: str = Depends(oauth2_scheme), session: Session = Dep
 @router.post("/register", response_model=UserRead, status_code=status.HTTP_201_CREATED)
 @limiter.limit("5/minute")
 def register(request: Request, user_in: UserCreate, session: Session = Depends(get_session)):
+    """
+    Register a new user in the system.
+    
+    Args:
+        request (Request): The HTTP request object (used for rate limiting).
+        user_in (UserCreate): The user registration details including email and password.
+        session (Session): The database session.
+        
+    Returns:
+        User: The newly created user object.
+        
+    Raises:
+        HTTPException: If the email is already registered.
+    """
     existing_user = session.exec(select(User).where(User.email == user_in.email)).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already registered")

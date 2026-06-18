@@ -210,16 +210,20 @@ class LogActivityScreenState extends State<LogActivityScreen> {
             const SizedBox(height: 16),
             
             // Date Picker
-            InkWell(
-              onTap: () => _selectDate(context),
-              child: InputDecorator(
-                decoration: const InputDecoration(labelText: 'Activity Date', border: OutlineInputBorder()),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('${_selectedDate.toLocal()}'.split(' ')[0]),
-                    const Icon(Icons.calendar_today),
-                  ],
+            Semantics(
+              label: 'Select Activity Date. Current date is ${_selectedDate.toLocal()}'.split(' ')[0],
+              button: true,
+              child: InkWell(
+                onTap: () => _selectDate(context),
+                child: InputDecorator(
+                  decoration: const InputDecoration(labelText: 'Activity Date', border: OutlineInputBorder()),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('${_selectedDate.toLocal()}'.split(' ')[0]),
+                      const Icon(Icons.calendar_today),
+                    ],
+                  ),
                 ),
               ),
             ),

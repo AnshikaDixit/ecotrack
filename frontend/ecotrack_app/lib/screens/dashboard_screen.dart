@@ -184,22 +184,25 @@ class DashboardScreenState extends State<DashboardScreen> {
                         ],
                       ),
                       const SizedBox(height: 8),
-                      TweenAnimationBuilder<double>(
-                        tween: Tween<double>(
-                          begin: 0,
-                          end: summary.totalCo2eKg,
+                      Semantics(
+                        label: 'Total Emissions: ${summary.totalCo2eKg.toStringAsFixed(1)} kilograms',
+                        child: TweenAnimationBuilder<double>(
+                          tween: Tween<double>(
+                            begin: 0,
+                            end: summary.totalCo2eKg,
+                          ),
+                          duration: const Duration(seconds: 1),
+                          builder: (context, value, child) {
+                            return Text(
+                              '${value.toStringAsFixed(1)} kg',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 48,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
+                          },
                         ),
-                        duration: const Duration(seconds: 1),
-                        builder: (context, value, child) {
-                          return Text(
-                            '${value.toStringAsFixed(1)} kg',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 48,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          );
-                        },
                       ),
                     ],
                   ),
@@ -217,41 +220,44 @@ class DashboardScreenState extends State<DashboardScreen> {
                   final fraction = summary.totalCo2eKg > 0
                       ? entry.value / summary.totalCo2eKg
                       : 0.0;
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              entry.key,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
+                  return Semantics(
+                    label: '${entry.key} emissions: ${entry.value.toStringAsFixed(1)} kilograms',
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                entry.key,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                            Text('${entry.value.toStringAsFixed(1)} kg'),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        TweenAnimationBuilder<double>(
-                          tween: Tween<double>(begin: 0, end: fraction),
-                          duration: const Duration(milliseconds: 1200),
-                          curve: Curves.easeOutCubic,
-                          builder: (context, val, child) {
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(4),
-                              child: LinearProgressIndicator(
-                                value: val,
-                                minHeight: 8,
-                                backgroundColor: Colors.grey.shade200,
-                                color: _getColorForCategory(entry.key),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
+                              Text('${entry.value.toStringAsFixed(1)} kg'),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          TweenAnimationBuilder<double>(
+                            tween: Tween<double>(begin: 0, end: fraction),
+                            duration: const Duration(milliseconds: 1200),
+                            curve: Curves.easeOutCubic,
+                            builder: (context, val, child) {
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(4),
+                                child: LinearProgressIndicator(
+                                  value: val,
+                                  minHeight: 8,
+                                  backgroundColor: Colors.grey.shade200,
+                                  color: _getColorForCategory(entry.key),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }),

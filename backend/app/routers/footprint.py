@@ -17,6 +17,17 @@ def read_footprint_summary(
     current_user: User = Depends(get_current_user), 
     session: Session = Depends(get_session)
 ):
+    """
+    Calculate the carbon footprint summary for the current user.
+    
+    Args:
+        period (str): The time period to summarize ('week', 'month', 'all').
+        current_user (User): The authenticated user making the request.
+        session (Session): The database session.
+        
+    Returns:
+        FootprintSummary: A summary object containing total CO2e and category breakdown.
+    """
     query = select(Activity).where(Activity.user_id == current_user.id)
     now = datetime.utcnow()
     

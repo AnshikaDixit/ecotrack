@@ -11,7 +11,10 @@ class GoalCard extends StatelessWidget {
     final isCompleted = goal.status == 'completed' || goal.progressPercent >= 1.0;
     final progress = goal.progressPercent;
     
-    return Card(
+    return Semantics(
+      container: true,
+      label: 'Goal: ${goal.title}. Status: ${isCompleted ? 'Completed' : 'Active'}. Target reduction: ${goal.targetReductionPercent} percent. Baseline: ${goal.baselineCo2eKg} kg. Current: ${goal.currentCo2eKg.toStringAsFixed(1)} kg. Progress: ${(progress * 100).toStringAsFixed(0)} percent.',
+      child: Card(
       margin: const EdgeInsets.only(bottom: 16.0),
       elevation: 4,
       shadowColor: isCompleted ? Colors.amber.withValues(alpha: 0.4) : Colors.black26,
@@ -111,6 +114,6 @@ class GoalCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }

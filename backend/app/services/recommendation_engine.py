@@ -14,6 +14,17 @@ def sort_by_contribution_desc(breakdown: dict) -> List[str]:
     return sorted(breakdown.keys(), key=lambda k: breakdown[k], reverse=True)
 
 def generate_insights(user: User, recent_activities: List[Activity], footprint_summary: FootprintSummary) -> List[Insight]:
+    """
+    Generate actionable carbon reduction insights using a deterministic rule engine.
+    
+    Args:
+        user (User): The user profile containing baseline settings.
+        recent_activities (List[Activity]): Activities logged by the user recently.
+        footprint_summary (FootprintSummary): The aggregated summary of the user's footprint.
+        
+    Returns:
+        List[Insight]: Up to 3 personalized, prioritized insights.
+    """
     breakdown = footprint_summary.category_breakdown
     insights = []
     
