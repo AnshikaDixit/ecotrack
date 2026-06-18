@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
+import '../constants/app_strings.dart';
 import 'dashboard_screen.dart';
 import 'log_activity_screen.dart';
 import 'goals_screen.dart';
@@ -25,7 +26,7 @@ class MainLayoutState extends State<MainLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('EcoTrack', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text(AppStrings.appName, style: TextStyle(fontWeight: FontWeight.bold)),
         elevation: 0,
         actions: [
           IconButton(
@@ -36,9 +37,14 @@ class MainLayoutState extends State<MainLayout> {
           ),
         ],
       ),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _screens,
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: IndexedStack(
+            index: _currentIndex,
+            children: _screens,
+          ),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -50,15 +56,15 @@ class MainLayoutState extends State<MainLayout> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
+            label: AppStrings.dashboard,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_circle_outline),
-            label: 'Log',
+            label: AppStrings.logActivity,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.flag),
-            label: 'Goals',
+            label: AppStrings.goals,
           ),
         ],
       ),

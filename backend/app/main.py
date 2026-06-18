@@ -12,15 +12,18 @@ app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 @app.on_event("startup")
-def on_startup():
+def on_startup() -> None:
+    """
+    Initialize the database schema and seed default emission factors on startup.
+    """
     create_db_and_tables()
     seed_factors()
 
 # Setup CORS
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "https://virtualwar-ecotrack-app.web.app,http://localhost:8000,http://127.0.0.1:8001").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://virtualwar-ecotrack-app.web.app", "http://localhost:8000", "http://127.0.0.1:8001"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -35,6 +38,8 @@ app.include_router(insights.router, prefix="/insights", tags=["insights"])
 app.include_router(goals.router, prefix="/goals", tags=["goals"])
 
 @app.get("/health")
-def health_check():
+def health_check() -> dict:
+    """
+    Basic health check endpoint to verify API availability.
+    """
     return {"status": "ok"}
-

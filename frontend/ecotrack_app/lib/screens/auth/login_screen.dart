@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
+import '../../constants/app_strings.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class LoginScreenState extends State<LoginScreen> {
     );
     if (!success && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login failed. Please check your credentials.')),
+        SnackBar(content: Text(authProvider.errorMessage ?? AppStrings.loginFailed)),
       );
     }
   }
@@ -43,7 +44,7 @@ class LoginScreenState extends State<LoginScreen> {
     
     if (!success && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to enter as guest. Please try again.')),
+        SnackBar(content: Text(authProvider.errorMessage ?? AppStrings.guestFailed)),
       );
     }
   }
