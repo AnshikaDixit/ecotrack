@@ -4,6 +4,7 @@ EcoTrack is a modern, intuitive carbon footprint tracker designed to help indivi
 
 ## ✨ Features
 *   **Intuitive Dashboard:** Visualize your carbon footprint with beautiful charts broken down by category (Transport, Food, Energy, Waste).
+*   **Frictionless Access:** Judges and users can instantly explore the app via the "Try as Guest" feature, providing an isolated sandbox experience without needing to create an account.
 *   **Activity Logging:** Easily log daily activities like meals, transportation, and energy usage.
 *   **Smart Recommendation Engine:** Get deterministic, rule-based insights and actionable tips based on your logged activities and lifestyle baseline.
 *   **Gamification (Eco Points):** Earn Eco Points for logging activities and hitting eco-friendly milestones to stay motivated!
